@@ -1,14 +1,15 @@
-using ConstraintExplorer
-using Test
-using Aqua
-using JET
 
-@testset "ConstraintExplorer.jl" begin
-    @testset "Code quality (Aqua.jl)" begin
-        Aqua.test_all(ConstraintExplorer)
-    end
-    @testset "Code linting (JET.jl)" begin
-        JET.test_package(ConstraintExplorer; target_defined_modules = true)
-    end
-    # Write your tests here.
+using ConstraintExplorer
+
+using Aqua
+using ExplicitImports
+using JET
+using Test
+using TestItemRunner
+
+@testset "Package tests: ConstraintExplorer" begin
+    include("Aqua.jl")
+    include("ExplicitImports.jl")
+    include("JET.jl")
+    include("TestItemRunner.jl")
 end
