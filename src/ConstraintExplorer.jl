@@ -3,7 +3,7 @@ module ConstraintExplorer
 #SECTION - Imports
 import ConstraintCommons
 import ConstraintDomains: AbstractDomain, ExploreSettings, explore
-import Constraints
+import Constraints: concept
 import JuMP
 import MathOptInterface as MOI
 

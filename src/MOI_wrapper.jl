@@ -1,15 +1,3 @@
-"""
-    JuMP.build_variable(::Function, info::JuMP.VariableInfo, set::T) where T <: MOI.AbstractScalarSet
-
-Create a variable constrained by a scalar set.
-
-# Arguments
-- `info::JuMP.VariableInfo`: Information about the variable to be created.
-- `set::T where T <: MOI.AbstractScalarSet`: The set defining the constraints on the variable.
-
-# Returns
-- `JuMP.VariableConstrainedOnCreation`: A variable constrained by the specified set.
-"""
 function JuMP.build_variable(
         ::Function,
         info::JuMP.VariableInfo,
@@ -18,16 +6,6 @@ function JuMP.build_variable(
     return JuMP.VariableConstrainedOnCreation(JuMP.ScalarVariable(info), set)
 end
 
-"""
-    Optimizer <: MOI.AbstractOptimizer
-
-Defines an optimizer for CBLS.
-
-# Fields
-- `solver::LS.MainSolver`: The main solver used for local search.
-- `int_vars::Set{Int}`: Set of integer variables.
-- `compare_vars::Set{Int}`: Set of variables to compare.
-"""
 mutable struct Optimizer <: MOI.AbstractOptimizer
     concepts::Dict{Int, Tuple{Function, Vector{Int}}}
     configurations::Tuple{Set{Vector{Number}}, Set{Vector{Number}}}
@@ -46,7 +24,7 @@ function Optimizer(;
 )
     c_max = maximum(keys(concepts); init = 0)
     d_max = maximum(keys(domains); init = 0)
-    return Optimizer(concepts, configurations, domains, parameters, settings, c_max, d_max)
+    return Optimizer(concepts, configurations, domains, settings, c_max, d_max)
 end
 
 MOI.get(::Optimizer, ::MOI.SolverName) = "Constraint Explorer"
