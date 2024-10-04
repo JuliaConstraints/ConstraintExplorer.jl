@@ -2,12 +2,14 @@ module ConstraintExplorer
 
 #SECTION - Imports
 import ConstraintCommons
-import ConstraintDomains: AbstractDomain, domain, RangeDomain, intersect_domains
+import ConstraintDomains: AbstractDomain, RangeDomain
+import ConstraintDomains: intersect_domains, domain
 import ConstraintDomains: Explorer, ExploreSettings, ExplorerState, explore!
-import Constraints: concept
+import Constraints: concept, USUAL_CONSTRAINTS
 import JuMP
 import MathOptInterface as MOI
 import Intervals: Interval, Closed, Open
+import Pkg
 
 import TestItems: @testitem
 
@@ -31,8 +33,7 @@ const VAR_TYPES = Union{MOI.ZeroOne, MOI.Integer}
 export DiscreteSet
 
 # Export: Constraints
-export Error
-export Intention, Predicate
+export Intention
 
 export AllDifferent
 export AllEqual
@@ -53,6 +54,9 @@ export NoOverlap#, NoOverlapNoZero, NoOverlapWithZero
 export Ordered
 export Regular
 export Sum
+
+#Exports: Explorer
+export configurations, solutions, non_solutions
 
 #SECTION - Includes
 include("MOI_wrapper.jl")
@@ -82,15 +86,23 @@ include("constraints/sum.jl")
 @testitem "ConstraintExplorer" default_imports=false begin
     using ConstraintDomains
     using ConstraintExplorer
+    import MathOptInterface as MOI
     using JuMP
+    using Test
 
     explorer = Model(ConstraintExplorer.Optimizer)
 
     @variable(explorer, 1≤X[1:4]≤4, Int)
 
-    # @constraint(explorer, X in AllDifferent())
+    @constraint(explorer, X in AllDifferent())
+    @constraint(explorer, X in DistDifferent())
 
     optimize!(explorer)
+
+    @test MOI.get(explorer, MOI.SolverName()) == "Constraint Explorer"
+
+    X, X̅ = configurations(explorer)
+    @info "All Different" X X̅
 end
 
 #SECTION - Main function (optional)

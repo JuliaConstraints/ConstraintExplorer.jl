@@ -35,7 +35,7 @@ end
 
 function Base.copy(set::MOICumulative)
     return MOICumulative(
-        copy(set.op), copy(set.pair_vars), copy(set.val), copy(set.dimension),)
+        set.op, copy(set.pair_vars), copy(set.val), copy(set.dimension),)
 end
 
 struct Cumulative{F <: Function, T1 <: Number, T2 <: Number, V <: VecOrMat{T1}} <:

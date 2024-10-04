@@ -26,7 +26,7 @@ function MOI.add_constraint(
 end
 
 function Base.copy(set::MOIMinimum)
-    return MOIMinimum(copy(set.op), copy(set.val), copy(set.dimension))
+    return MOIMinimum(set.op, copy(set.val), copy(set.dimension))
 end
 
 struct Minimum{F <: Function, T <: Number} <: JuMP.AbstractVectorSet

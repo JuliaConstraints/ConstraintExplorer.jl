@@ -26,7 +26,7 @@ function MOI.add_constraint(
 end
 
 function Base.copy(set::MOICircuit)
-    return MOICircuit(copy(set.op), copy(set.val), copy(set.dimension))
+    return MOICircuit(set.op, copy(set.val), copy(set.dimension))
 end
 
 struct Circuit{F <: Function, T <: Number} <: JuMP.AbstractVectorSet

@@ -38,7 +38,7 @@ end
 
 function Base.copy(set::MOICount)
     return MOICount(
-        copy(set.op), copy(set.val), copy(set.vals), copy(set.dimension),)
+        set.op, copy(set.val), copy(set.vals), copy(set.dimension),)
 end
 
 struct Count{F <: Function, T1 <: Number, T2 <: Number} <: JuMP.AbstractVectorSet

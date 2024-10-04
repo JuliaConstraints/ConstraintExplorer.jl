@@ -32,7 +32,7 @@ function MOI.add_constraint(
 end
 
 function Base.copy(set::MOINValues)
-    return MOINValues(copy(set.op), copy(set.val), copy(set.vals), copy(set.dimension))
+    return MOINValues(set.op, copy(set.val), copy(set.vals), copy(set.dimension))
 end
 
 struct NValues{F <: Function, T1 <: Number, T2 <: Number, V <: Vector{T2}} <:

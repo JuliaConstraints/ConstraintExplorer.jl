@@ -35,7 +35,7 @@ function MOI.add_constraint(
 end
 
 function Base.copy(set::MOISum)
-    return MOISum(copy(set.op), copy(set.pair_vars), copy(set.val), copy(set.dimension))
+    return MOISum(set.op, copy(set.pair_vars), copy(set.val), copy(set.dimension))
 end
 
 struct Sum{F <: Function, T1 <: Number, T2 <: Number, V <: Vector{T1}} <:

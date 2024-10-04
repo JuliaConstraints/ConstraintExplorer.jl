@@ -26,7 +26,7 @@ function MOI.add_constraint(
 end
 
 function Base.copy(set::MOIMaximum)
-    return MOIMaximum(copy(set.op), copy(set.val), copy(set.dimension))
+    return MOIMaximum(set.op, copy(set.val), copy(set.dimension))
 end
 
 struct Maximum{F <: Function, T <: Number} <: JuMP.AbstractVectorSet

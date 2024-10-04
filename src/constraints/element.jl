@@ -29,7 +29,8 @@ function MOI.add_constraint(
 end
 
 function Base.copy(set::MOIElement)
-    return MOIElement(copy(set.id), copy(set.op), copy(set.val), copy(set.dimension))
+    val = set.val === nothing ? nothing : copy(set.val)
+    return MOIElement(copy(set.id), set.op, val, copy(set.dimension))
 end
 
 struct Element{I <: Integer, F <: Function, T <: Union{Nothing, Number}} <:

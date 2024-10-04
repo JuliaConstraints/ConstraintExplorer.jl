@@ -34,7 +34,7 @@ end
 
 MOI.is_empty(model::Optimizer) = model.c_max == 0 && model.d_max == 0
 
-struct CompleteSearchLimit <: MOI.AbstractModelAttribute end
+struct CompleteSearchLimit <: MOI.AbstractOptimizerAttribute end
 
 function MOI.set(model::Optimizer, ::CompleteSearchLimit, n::Integer)
     settings = ExploreSettings(
@@ -51,7 +51,7 @@ function MOI.get(model::Optimizer, ::CompleteSearchLimit)
     return model.explorer.settings.complete_search_limit
 end
 
-struct MaxSamplings <: MOI.AbstractModelAttribute end
+struct MaxSamplings <: MOI.AbstractOptimizerAttribute end
 
 function MOI.set(model::Optimizer, ::MaxSamplings, n::Integer)
     settings = ExploreSettings(
@@ -68,7 +68,7 @@ function MOI.get(model::Optimizer, ::MaxSamplings)
     return model.explorer.settings.max_samplings
 end
 
-struct Search <: MOI.AbstractModelAttribute end
+struct Search <: MOI.AbstractOptimizerAttribute end
 
 function MOI.set(model::Optimizer, ::Search, s::Symbol)
     settings = ExploreSettings(
@@ -85,7 +85,7 @@ function MOI.get(model::Optimizer, ::Search)
     return model.explorer.settings.search
 end
 
-struct NumberOfSolutions <: MOI.AbstractModelAttribute end
+struct NumberOfSolutions <: MOI.AbstractOptimizerAttribute end
 
 function MOI.set(model::Optimizer, ::NumberOfSolutions, n::Integer)
     settings = ExploreSettings(
@@ -102,10 +102,6 @@ function MOI.get(model::Optimizer, ::NumberOfSolutions)
     return model.explorer.settings.solutions_limit
 end
 
-struct Configurations <: MOI.AbstractModelAttribute end
-
-MOI.get(model::Optimizer, ::Configurations) = model.configurations
-
 MOI.supports_incremental_interface(::Optimizer) = true
 
 function MOI.copy_to(dest::Optimizer, src::MOI.ModelLike)
@@ -119,3 +115,9 @@ function MOI.get(::Optimizer, ::MOI.SolverVersion)
     _uuid = Base.UUID("5800fd60-8556-4464-8d61-84ebf7a0bedb")
     return "v" * string(deps[_uuid].version)
 end
+
+solutions(model) = model.moi_backend.optimizer.model.explorer.state.solutions
+
+non_solutions(model) = model.moi_backend.optimizer.model.explorer.state.non_solutions
+
+configurations(model) = solutions(model), non_solutions(model)

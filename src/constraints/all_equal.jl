@@ -29,8 +29,8 @@ function MOI.add_constraint(
 end
 
 function Base.copy(set::MOIAllEqual)
-    return MOIAllEqual(
-        copy(set.op), copy(set.pair_vars), copy(set.val), copy(set.dimension),)
+    val = set.val === nothing ? nothing : copy(set.val)
+    return MOIAllEqual(set.op, copy(set.pair_vars), val, copy(set.dimension))
 end
 
 struct AllEqual{F <: Function, T1 <: Number, T2 <: Union{Nothing, Number}} <:

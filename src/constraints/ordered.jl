@@ -34,7 +34,7 @@ function MOI.add_constraint(
 end
 
 function Base.copy(set::MOIOrdered)
-    return MOIOrdered(copy(set.op), copy(set.pair_vars), copy(set.dimension))
+    return MOIOrdered(set.op, copy(set.pair_vars), copy(set.dimension))
 end
 
 struct Ordered{F <: Function, T <: Number, V <: Vector{T}} <:
