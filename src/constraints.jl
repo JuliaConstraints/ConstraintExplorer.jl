@@ -1,8 +1,9 @@
 function constraint!(optimizer::Optimizer, f, vars)
     cid = optimizer.c_max + 1
     optimizer.c_max = cid
-    push!(optimizer.concepts, cid => (f, map(x -> x.value, vars.variables)))
-    return cidx
+    @info "debug" f vars
+    push!(optimizer.concepts, cid => (f, vars))
+    return cid
 end
 
 struct MOIIntention{F <: Function} <: MOI.AbstractVectorSet
