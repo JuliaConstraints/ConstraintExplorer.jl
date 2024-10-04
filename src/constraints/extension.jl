@@ -49,11 +49,6 @@ function JuMP.moi_set(set::Extension, dim::Int)
     return MOIExtension(set.pair_vars, dim)
 end
 
-"""
-    MOISupports{T <: Number, V <: Vector{Vector{T}}} <: MOI.AbstractVectorSet
-
-DOCSTRING
-"""
 struct MOISupports{T <: Number, V <: Vector{Vector{T}}} <: MOI.AbstractVectorSet
     pair_vars::V
     dimension::Int

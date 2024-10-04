@@ -1,8 +1,3 @@
-"""
-    MOIInstantiation{T <: Number, V <: Vector{T}} <: MOI.AbstractVectorSet
-
-DOCSTRING
-"""
 struct MOIInstantiation{T <: Number, V <: Vector{T}} <:
        MOI.AbstractVectorSet
     pair_vars::V
