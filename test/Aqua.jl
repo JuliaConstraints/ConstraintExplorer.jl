@@ -2,14 +2,14 @@
     # TODO: Fix the broken tests and remove the `broken = true` flag
     Aqua.test_all(
         ConstraintExplorer;
-        ambiguities = (broken = true,),
+        ambiguities = (broken = false,),
         deps_compat = true,
         piracies = (broken = false,),
     )
 
-    @testset "Ambiguities: ConstraintExplorer" begin
-        Aqua.test_ambiguities(ConstraintExplorer;)
-    end
+    # @testset "Ambiguities: ConstraintExplorer" begin
+    #     Aqua.test_ambiguities(ConstraintExplorer;)
+    # end
 
     @testset "Piracies: ConstraintExplorer" begin
         Aqua.test_piracies(ConstraintExplorer;)

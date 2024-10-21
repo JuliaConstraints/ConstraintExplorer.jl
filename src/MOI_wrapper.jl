@@ -121,3 +121,8 @@ solutions(model) = model.moi_backend.optimizer.model.explorer.state.solutions
 non_solutions(model) = model.moi_backend.optimizer.model.explorer.state.non_solutions
 
 configurations(model) = solutions(model), non_solutions(model)
+
+function check!(model, configurations)
+    checker = model.moi_backend.optimizer.model.explorer
+    return _check!(checker, configurations)
+end
