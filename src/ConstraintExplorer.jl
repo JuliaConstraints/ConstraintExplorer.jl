@@ -4,7 +4,7 @@ module ConstraintExplorer
 import ConstraintCommons
 import ConstraintDomains: AbstractDomain, RangeDomain
 import ConstraintDomains: intersect_domains, domain
-import ConstraintDomains: Explorer, ExploreSettings, ExplorerState, explore!
+import ConstraintDomains: Explorer, ExploreSettings, ExplorerState, explore!, _check!
 import Constraints: concept, USUAL_CONSTRAINTS
 import JuMP
 import MathOptInterface as MOI
@@ -56,7 +56,7 @@ export Regular
 export Sum
 
 #Exports: Explorer
-export configurations, solutions, non_solutions
+export configurations, solutions, non_solutions, check!
 
 #SECTION - Includes
 include("MOI_wrapper.jl")
@@ -103,6 +103,23 @@ include("constraints/sum.jl")
 
     X, X̅ = configurations(explorer)
     @info "All Different" X X̅
+
+    x = first(X)
+
+    checker = Model(ConstraintExplorer.Optimizer)
+
+    @variable(checker, 1≤X[1:4]≤4, Int)
+
+    @constraint(checker, X in AllDifferent())
+    @constraint(checker, X in DistDifferent())
+
+    check!(checker, [x])
+
+    Y, Y̅ = configurations(checker)
+
+    @test x ∈ Y
+    @test length(Y) == 1
+    @test isempty(Y̅)
 end
 
 #SECTION - Main function (optional)

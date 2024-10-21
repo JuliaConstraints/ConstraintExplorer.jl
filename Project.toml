@@ -1,7 +1,7 @@
 name = "ConstraintExplorer"
 uuid = "798c8aff-73f8-4b88-855c-426d3d936206"
 authors = ["Jean-François BAFFIER (@Azzaare)"]
-version = "0.0.1"
+version = "0.0.2"
 
 [deps]
 ConstraintCommons = "e37357d9-0691-492f-a822-e5ea6a920954"
@@ -17,7 +17,7 @@ TestItems = "1c621080-faea-4a02-84b6-bbd5e436b8fe"
 [compat]
 Aqua = "0.8"
 ConstraintCommons = "0.2"
-ConstraintDomains = "0.3.14"
+ConstraintDomains = "0.3.15"
 Constraints = "0.5"
 ExplicitImports = "1"
 Intervals = "1"
